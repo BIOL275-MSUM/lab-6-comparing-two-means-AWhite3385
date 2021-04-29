@@ -14,15 +14,24 @@ crabs
 # graph the distribution of body temperatures for each crab type
 
 
- crabs %>% 
-  ggplot(mapping = aes(x = crabType, y = bodyTemperature)) +
-  geom_jitter(aes(color = crabType)) +
-  labs(y = NULL) +
-  guides(color = "none") +
-  theme_minimal() +
-  theme(strip.placement = "outside")
+crabs %>% 
+  ggplot(aes(x = bodyTemperature)) +
+  geom_histogram(
+    aes(fill = crabType ), 
+    bins = 15, 
+    alpha = 0.5,
+    position= "identity",
+    na.rm = TRUE)+
+  labs(x= "Temperature", y="Frequency", fill="Type of Crab")+
+  facet_wrap(~crabType)
 
 # QUESTION E --------------------------------------------------------------
+
+aov_crabs <-
+  aov( bodyTemperature ~ crabType, data = crabs)
+aov_crabs
+
+summary(aov_crabs)
 
 # ANOVA
 

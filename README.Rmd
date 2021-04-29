@@ -106,13 +106,17 @@ crabs <- read_csv("chap15q27FiddlerCrabFans.csv")
 crabs
 
 
- crabs %>% 
-  ggplot(mapping = aes(x = crabType, y = bodyTemperature)) +
-  geom_jitter(aes(color = crabType)) +
-  labs(y = NULL) +
-  guides(color = "none") +
-  theme_minimal() +
-  theme(strip.placement = "outside")
+crabs %>% 
+  ggplot(aes(x = bodyTemperature)) +
+  geom_histogram(
+    aes(fill = crabType ), 
+    bins = 15, 
+    alpha = 0.5,
+    position= "identity",
+    na.rm = TRUE)+
+  labs(x= "Temperature", y="Frequency", fill="Type of Crab")+
+  facet_wrap(~crabType)
+
 ```
 
 ### Question E
