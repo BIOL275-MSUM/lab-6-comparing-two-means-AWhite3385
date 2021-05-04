@@ -1,7 +1,7 @@
 Lab 6 Comparing means
 ================
 Alec White
-2021-04-28
+2021-05-04
 
 Fill out this report and submit it as your completed assignment.
 
@@ -101,7 +101,10 @@ t.test(formula = species ~ location, data = fish_long)
     ## mean in group Downstream   mean in group Upstream 
     ##                 16.41667                 14.58333
 
-ANSWER
+ANSWER With the p-value from this t-test, we can determine that there is
+a significant difference between the two means since the p-value is
+greater than the alpha value of .05. with this we would reject the null
+hypothesis.
 
 ### Question B
 
@@ -201,16 +204,17 @@ crabs
     ## # ... with 75 more rows
 
 ``` r
- crabs %>% 
-  ggplot(mapping = aes(x = crabType, y = bodyTemperature)) +
-  geom_jitter(aes(color = crabType)) +
-  labs(y = NULL) +
-  guides(color = "none") +
-  theme_minimal() +
-  theme(strip.placement = "outside")
+crabs %>% 
+  ggplot(aes(x = bodyTemperature)) +
+  geom_histogram(
+    aes(fill = crabType ), 
+    bins = 15, 
+    alpha = 0.5,
+    position= "identity",
+    na.rm = TRUE)+
+  labs(x= "Temperature", y="Frequency", fill="Type of Crab")+
+  facet_wrap(~crabType)
 ```
-
-    ## Warning: Removed 1 rows containing missing values (geom_point).
 
 ![](README_files/figure-gfm/unnamed-chunk-3-1.png)<!-- -->
 
@@ -218,6 +222,10 @@ crabs
 
 > Does body temperature vary among crab types? State the null and
 > alternative hypothesis, conduct and ANOVA, and interpret the results.
+
+The null hypothesis is that there will be no difference in temperature
+among the different crab types. The alternative hypothesis is that there
+is a difference in temperature between the crab types.
 
 ``` r
 aov_crabs <-
@@ -247,3 +255,7 @@ summary(aov_crabs)
     ## ---
     ## Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1
     ## 1 observation deleted due to missingness
+
+The Anova gives us an F-value that we can interpret as large enough to
+assume decent variation between the different crab type’s recorded
+temperatures. With this we can reject the null hypothesis.

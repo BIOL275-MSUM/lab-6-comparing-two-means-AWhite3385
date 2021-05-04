@@ -51,6 +51,7 @@ t.test(formula = species ~ location, data = fish_long)
 ```
 
 ANSWER
+With the p-value from this t-test, we can determine that there is a significant difference between the two means since the p-value is greater than the alpha value of .05. with this we would reject the null hypothesis.
 
 ### Question B
 
@@ -123,6 +124,8 @@ crabs %>%
 
 > Does body temperature vary among crab types? State the null and alternative hypothesis, conduct and ANOVA, and interpret the results.
 
+The null hypothesis is that there will be no difference in temperature among the different crab types. The alternative hypothesis is that there is a difference in temperature between the crab types.
+
 ```{r}
 aov_crabs <-
   aov( bodyTemperature ~ crabType, data = crabs)
@@ -130,3 +133,5 @@ aov_crabs
 
 summary(aov_crabs)
 ```
+
+The Anova gives us an F-value that we can interpret as large enough to assume decent variation between the different crab type's recorded temperatures. With this we can reject the null hypothesis.
